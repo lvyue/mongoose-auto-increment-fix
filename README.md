@@ -24,16 +24,25 @@ That's it. Now you can create book entities at will and the `_id` field will aut
 
 ### Want a field other than `_id`?
 
-Let's say you have a field called `sortOrder` and you'd like to increment that instead of `_id`.
+    bookSchema.plugin(autoIncrement, { model: 'Book', field: 'sequence' });
 
-    bookSchema.plugin(autoIncrement, { model: 'Book', field: 'sortOrder' });
+### Want that field to start at a different number than zero or increment by more than one?
 
-Can't get much simpler than that!
-
-### Want to start the field value at a different number than zero or increment by more than one?
-
-Let's say for some reason you want to start counting from 100 and you want to increment by 100 each time as well.
-
-    bookSchema.plugin(autoIncrement, { model: 'Book', startAt: 100, incrementBy: 100 });
+    bookSchema.plugin(autoIncrement, {
+        model: 'Book',
+        field: 'sequence',
+        startAt: 100,
+        incrementBy: 100
+    });
 
 Your first book document would have an `_id` equal to `100`. Your second book document would have an `_id` equal to `200`, and so on.
+
+### Want your field to increment every time you update it too?
+
+    bookSchema.plugin(autoIncrement, {
+        model: 'Book',
+        field: 'sequence',
+        startAt: 100,
+        incrementBy: 100,
+        incrementOnUpdate: true
+    });
