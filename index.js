@@ -15,7 +15,7 @@ var counterSchema = new mongoose.Schema({
     }
 });
 counterSchema.index({ field: 1, model: 1 }, { unique: true, required: true, index: -1 });
-var Counter = mongoose.connection.model('Counter', counterSchema);
+var Counter = mongoose.connection.model('MAIC-Counter', counterSchema);
 
 module.exports = exports = function (schema, options) {
     var settings = {
