@@ -1,13 +1,28 @@
-var Counter,
-    mongoose,
-    counterName;
+var mongoose = require('mongoose');
 
-this.plugin = function (schema, options) {
+var counterSchema = new mongoose.Schema({
+    model: {
+        type: String,
+        require: true
+    },
+    field: {
+        type: String,
+        require: true
+    },
+    c: {
+        type: Number,
+        default: 0
+    }
+});
+counterSchema.index({ field: 1, model: 1 }, { unique: true, required: true, index: -1 });
+var Counter = mongoose.connection.model('Counter', counterSchema);
 
+module.exports = exports = function (schema, options) {
     var settings = {
             model: null,
             field: '_id',
-            start: 0
+            startAt: 0,
+            incrementBy: 1
         },
         fields = {},
         ready = false;
@@ -32,7 +47,7 @@ this.plugin = function (schema, options) {
         { model: settings.model, field: settings.field },
         function (err, res) {
             if (!res) {
-                var counter = new Counter({ model: settings.model, field: settings.field, c: options.start });
+                var counter = new Counter({ model: settings.model, field: settings.field, c: settings.startAt });
                 counter.save(function () {
                     ready = true;
                 });
@@ -49,7 +64,7 @@ this.plugin = function (schema, options) {
                 Counter.collection.findAndModify(
                     { model: settings.model, field: settings.field },
                     null,
-                    { $inc: { c: 1 } },
+                    { $inc: { c: settings.incrementBy } },
                     { new: true, upsert: true },
                     function (err, res) {
                         if (err) return next(err);
@@ -63,27 +78,4 @@ this.plugin = function (schema, options) {
                 setTimeout(save, 5);
         })();
     });
-
-};
-
-this.init = function (database, counter) {
-    mongoose = require('mongoose');
-    counterName = counter || 'counter';
-
-    var counterSchema = new mongoose.Schema({
-        model: {
-            type: String,
-            require: true
-        },
-        field: {
-            type: String,
-            require: true
-        },
-        c: {
-            type: Number,
-            default: 0
-        }
-    });
-    counterSchema.index({ field: 1, model: 1 }, { unique: true, required: true, index: -1 });
-    Counter = database.model(counterName, counterSchema);
 };
