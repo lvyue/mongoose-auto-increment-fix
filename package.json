@@ -1,0 +1,28 @@
+{
+  "name": "mongoose-auto-increment",
+  "version": "1.0.0",
+  "description": "This plugin allows you to auto-increment any field on any mongoose schema that you wish.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Chevex/mongoose-auto-increment.git"
+  },
+  "keywords": [
+    "mongoose",
+    "plugin",
+    "auto-increment",
+    "auto",
+    "increment",
+    "automatic",
+    "autoincrement",
+    "auto_increment",
+    "autoinc",
+    "auto-inc",
+    "auto_inc",
+    "pureautoinc",
+    "mongoose-pureautoinc"
+  ],
+  "author": "Chevex",
+  "bugs": {
+    "url": "https://github.com/Chevex/mongoose-auto-increment/issues"
+  }
+}
