@@ -22,7 +22,8 @@ module.exports = exports = function (schema, options) {
             model: null,
             field: '_id',
             startAt: 0,
-            incrementBy: 1
+            incrementBy: 1,
+            incrementOnUpdate: false
         },
         fields = {},
         ready = false;
@@ -68,7 +69,7 @@ module.exports = exports = function (schema, options) {
                     { new: true, upsert: true },
                     function (err, res) {
                         if (err) return next(err);
-                        if (typeof(doc[settings.field]) !== 'number')
+                        if (typeof(doc[settings.field]) !== 'number' || settings.incrementOnUpdate)
                             doc[settings.field] = res.c - 1;
                         next();
                     }
