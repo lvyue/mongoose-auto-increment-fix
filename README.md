@@ -35,3 +35,5 @@ Can't get much simpler than that!
 Let's say for some reason you want to start counting from 100 and you want to increment by 100 each time as well.
 
     bookSchema.plugin(autoIncrement, { model: 'Book', startAt: 100, incrementBy: 100 });
+
+Your first book document would have an `_id` equal to `100`. Your second book document would have an `_id` equal to `200`, and so on.
