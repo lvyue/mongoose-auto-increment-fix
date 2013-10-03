@@ -6,6 +6,10 @@
     "type": "git",
     "url": "git://github.com/Chevex/mongoose-auto-increment.git"
   },
+  "dependencies": {
+    "mongoose": "*",
+    "extend": "*"
+  },
   "keywords": [
     "mongoose",
     "plugin",
