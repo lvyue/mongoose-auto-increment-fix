@@ -59,24 +59,27 @@ module.exports = exports = function (schema, options) {
     );
 
     schema.pre('save', function (next) {
-        var doc = this;
-        (function save() {
-            if (ready) {
-                Counter.collection.findAndModify(
-                    { model: settings.model, field: settings.field },
-                    null,
-                    { $inc: { c: settings.incrementBy } },
-                    { new: true, upsert: true },
-                    function (err, res) {
-                        if (err) return next(err);
-                        if (typeof(doc[settings.field]) !== 'number' || settings.incrementOnUpdate)
+        if (typeof(doc[settings.field]) !== 'number' || settings.incrementOnUpdate) {
+            var doc = this;
+            (function save() {
+                if (ready) {
+                    Counter.collection.findAndModify(
+                        { model: settings.model, field: settings.field },
+                        null,
+                        { $inc: { c: settings.incrementBy } },
+                        { new: true, upsert: true },
+                        function (err, res) {
+                            if (err) return next(err);
                             doc[settings.field] = res.c - 1;
-                        next();
-                    }
-                );
-            }
-            else
-                setTimeout(save, 5);
-        })();
+                            next();
+                        }
+                    );
+                }
+                else
+                    setTimeout(save, 5);
+            })();
+        }
+        else
+            next();
     });
 };
