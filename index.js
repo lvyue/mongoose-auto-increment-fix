@@ -60,8 +60,8 @@ module.exports = exports = function (schema, options) {
     );
 
     schema.pre('save', function (next) {
+        var doc = this;
         if (typeof(doc[settings.field]) !== 'number' || settings.incrementOnUpdate) {
-            var doc = this;
             (function save() {
                 if (ready) {
                     Counter.collection.findAndModify(
