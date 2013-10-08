@@ -1,4 +1,5 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    extend = require('extend');
 
 var counterSchema = new mongoose.Schema({
     model: {
@@ -29,10 +30,10 @@ module.exports = exports = function (schema, options) {
         ready = false;
 
     switch (typeof(options)) {
-        case 'String':
+        case 'string':
             settings.model = options;
             break;
-        case 'Object':
+        case 'object':
             extend(settings, options);
             break;
     }
