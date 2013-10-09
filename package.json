@@ -10,6 +10,10 @@
     "mongoose": "*",
     "extend": "*"
   },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
   "keywords": [
     "mongoose",
     "plugin",
@@ -26,6 +30,12 @@
     "mongoose-pureautoinc"
   ],
   "author": "Chevex",
+  "contributors": [
+    {
+      "name": "Nassor Paulino da Silva",
+      "email": "nassor@gmail.com"
+    } 
+  ],
   "bugs": {
     "url": "https://github.com/Chevex/mongoose-auto-increment/issues"
   }
