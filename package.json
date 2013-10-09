@@ -7,8 +7,10 @@
     "url": "git://github.com/Chevex/mongoose-auto-increment.git"
   },
   "dependencies": {
-    "mongoose": "*",
     "extend": "*"
+  },
+  "peerDependencies": {
+    "mongoose": "*"
   },
   "devDependencies": {
     "mocha": "*",
@@ -34,7 +36,7 @@
     {
       "name": "Nassor Paulino da Silva",
       "email": "nassor@gmail.com"
-    } 
+    }
   ],
   "bugs": {
     "url": "https://github.com/Chevex/mongoose-auto-increment/issues"
