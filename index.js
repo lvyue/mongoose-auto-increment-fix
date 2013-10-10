@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Counter;
 
 exports.initialize = function (connection) {
-    var counterSchema = new mongoose.Schema({
+    counterSchema = new mongoose.Schema({
         model: {
             type: String,
             require: true
