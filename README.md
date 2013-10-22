@@ -13,7 +13,9 @@ mongoose connection and pass `autoIncrement.plugin` to the `plugin()` function o
     var mongoose = require('mongoose'),
         autoIncrement = require('mongoose-auto-increment');
 
-    autoIncrement.initialize(mongoose.connection);
+    var connection = mongoose.createConnection("mongodb://localhost/myDatabase");
+
+    autoIncrement.initialize(connection);
 
     var bookSchema = new mongoose.Schema({
         author: { type: Schema.Types.ObjectId, ref: 'Author' },
@@ -23,7 +25,7 @@ mongoose connection and pass `autoIncrement.plugin` to the `plugin()` function o
     });
 
     bookSchema.plugin(autoIncrement.plugin, 'Book');
-    mongoose.model('Book', bookSchema);
+    var Book = connection.model('Book', bookSchema);
 
 That's it. Now you can create book entities at will and the `_id` field will automatically increment with each new document.
 
