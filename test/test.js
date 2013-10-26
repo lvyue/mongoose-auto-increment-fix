@@ -10,6 +10,8 @@ after(function(done) {
   });
 });
 
+autoIncrement.initialize(mongoose.connection);
+
 describe('Auto Increment Plugin', function() {
   
   it('should auto-increment in _id', function(done) {
@@ -18,13 +20,13 @@ describe('Auto Increment Plugin', function() {
       name: String,
       dept: String
     });
-    SomeSchema.plugin(autoIncrement, 'ai_id');
+    SomeSchema.plugin(autoIncrement.plugin, 'ai_id');
     var User = mongoose.model('ai_id', SomeSchema);
     var user = new User({ name: 'Name test', dept: 'Department test' });
     
     user.save(function(err) {
       should.not.exists(err);
-      user._id.should.eql(0)
+      user._id.should.eql(0);
       done();
     });
   });
@@ -35,7 +37,7 @@ describe('Auto Increment Plugin', function() {
       dept: String,
       sequence: Number
     });
-    SomeSchema.plugin(autoIncrement, {model: 'ai_another_field', field: 'sequence'});
+    SomeSchema.plugin(autoIncrement.plugin, {model: 'ai_another_field', field: 'sequence'});
     var User = mongoose.model('ai_another_field', SomeSchema);
     
     var user = new User({ name: 'Name test', dept: 'Department test' });
@@ -51,7 +53,7 @@ describe('Auto Increment Plugin', function() {
       name: String,
       dept: String
     });
-    SomeSchema.plugin(autoIncrement, {model: 'ai_start_at', startAt: 3});
+    SomeSchema.plugin(autoIncrement.plugin, {model: 'ai_start_at', startAt: 3});
     var User = mongoose.model('ai_start_at', SomeSchema);
     
     var user = new User({ name: 'Name test', dept: 'Department test' });
@@ -67,7 +69,7 @@ describe('Auto Increment Plugin', function() {
       name: String,
       dept: String
     });
-    SomeSchema.plugin(autoIncrement, {model: 'incrementBy', incrementBy: 5});
+    SomeSchema.plugin(autoIncrement.plugin, {model: 'incrementBy', incrementBy: 5});
     var User = mongoose.model('incrementBy', SomeSchema);
     
     var user = new User({ name: 'Name test', dept: 'Department test' });
@@ -93,7 +95,7 @@ describe('Auto Increment Plugin', function() {
       dept: String,
       sequence: Number
     });
-    SomeSchema.plugin(autoIncrement, {model: 'incrementOnUpdate', field: 'sequence', incrementOnUpdate: true});
+    SomeSchema.plugin(autoIncrement.plugin, {model: 'incrementOnUpdate', field: 'sequence', incrementOnUpdate: true});
     var User = mongoose.model('incrementOnUpdate', SomeSchema);
     var user = new User({ name: 'Name test', dept: 'Department test' });
     

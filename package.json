@@ -38,6 +38,9 @@
       "email": "nassor@gmail.com"
     }
   ],
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha"
+  },
   "bugs": {
     "url": "https://github.com/Chevex/mongoose-auto-increment/issues"
   }
