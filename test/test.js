@@ -111,4 +111,21 @@ describe('Auto Increment Plugin', function() {
     });
     
   });
+
+  it('should return the next number', function(done) {
+    var SomeSchema = new mongoose.Schema({
+      name: String,
+      dept: String,
+      sequence: Number
+    });
+    SomeSchema.plugin(autoIncrement.plugin, {model: 'next', field: 'nextField'});
+    var User = mongoose.model('next', SomeSchema);
+    var user = new User({name: 'name test', dept: 'dept test'});
+    user.nextAutoIncrement().should.eql(0);
+    user.save(function(err) {
+      should.not.exists(err);
+      user.nextAutoIncrement().should.eql(1);
+      done();
+    });
+  });
 });

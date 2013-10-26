@@ -65,6 +65,13 @@ exports.plugin = function (schema, options) {
         }
     );
 
+    schema.methods.nextAutoIncrement = function () {
+        if (typeof this[settings.field] === 'undefined') {
+            return settings.startAt;
+        }
+        return this[settings.field] + settings.incrementBy;
+    };
+
     schema.pre('save', function (next) {
         var doc = this;
         if (typeof(doc[settings.field]) !== 'number' || settings.incrementOnUpdate) {
