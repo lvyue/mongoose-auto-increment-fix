@@ -65,6 +65,26 @@ exports.plugin = function (schema, options) {
         }
     );
 
+    schema.methods.nextAutoIncrement = function (cb) {
+        Counter.findOne({
+            model: settings.model,
+            field: settings.field
+        }, function (err, res) {
+            var c;
+            if (err) {
+                cb(err);
+            }
+            if (res === null) {
+                c = settings.startAt;
+            } else {
+                c = res.c;
+            }
+            cb(null, c);
+        });
+    };
+
+    schema.statics.nextAutoIncrement = schema.methods.nextAutoIncrement;
+
     schema.pre('save', function (next) {
         var doc = this;
         if (typeof(doc[settings.field]) !== 'number' || settings.incrementOnUpdate) {

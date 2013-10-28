@@ -53,3 +53,17 @@ Your first book document would have an `_id` equal to `100`. Your second book do
         incrementBy: 100,
         incrementOnUpdate: true
     });
+
+### Want to know the next number coming up?
+
+    var Book = connection.model('Book', bookSchema);
+    Book.nextAutoIncrement(function(err, res) {
+        console.log(res); // 0, since you have not saved anything
+        var book = new Book();
+        book.save(function(err) {
+            // doc-level function as well
+            book.nextAutoIncrement(function(err, res) {
+                console.log(res); // book's # is 0, so this is 1
+            });
+        });
+    });
