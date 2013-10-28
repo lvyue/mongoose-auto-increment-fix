@@ -78,4 +78,4 @@ Your first book document would have a `bookId` equal to `100`. Your second book 
         });
     });
     
-nextCount is both a static method on the model (Ex: `Book.nextCount(...)`) and an instance method on the document (Ex: `book.nextCount(...)`).
+nextCount is both a static method on the model (`Book.nextCount(...)`) and an instance method on the document (`book.nextCount(...)`).
