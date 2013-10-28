@@ -8,7 +8,7 @@ This plugin allows you to auto-increment any field on any mongoose schema that y
 Once you have the plugin installed it is very simple to use. Just get reference to it, initialize it by passing in your
 mongoose connection and pass `autoIncrement.plugin` to the `plugin()` function on your schema.
 
-> Note: You only need to initialize autoIncrement once.
+> Note: You only need to initialize MAI once.
 
     var mongoose = require('mongoose'),
         autoIncrement = require('mongoose-auto-increment');
@@ -31,39 +31,46 @@ That's it. Now you can create book entities at will and the `_id` field will aut
 
 ### Want a field other than `_id`?
 
-    bookSchema.plugin(autoIncrement.plugin, { model: 'Book', field: 'sequence' });
+    bookSchema.plugin(autoIncrement.plugin, { model: 'Book', field: 'bookId' });
 
 ### Want that field to start at a different number than zero or increment by more than one?
 
     bookSchema.plugin(autoIncrement.plugin, {
         model: 'Book',
-        field: 'sequence',
+        field: 'bookId',
         startAt: 100,
         incrementBy: 100
     });
 
-Your first book document would have an `_id` equal to `100`. Your second book document would have an `_id` equal to `200`, and so on.
+Your first book document would have a `bookId` equal to `100`. Your second book document would have a `bookId` equal to `200`, and so on.
 
 ### Want your field to increment every time you update it too?
 
     bookSchema.plugin(autoIncrement.plugin, {
         model: 'Book',
-        field: 'sequence',
+        field: 'bookId',
         startAt: 100,
-        incrementBy: 100,
-        incrementOnUpdate: true
+        incrementBy: 100
     });
 
 ### Want to know the next number coming up?
 
     var Book = connection.model('Book', bookSchema);
-    Book.nextAutoIncrement(function(err, res) {
-        console.log(res); // 0, since you have not saved anything
+    Book.nextCount(function(err, count) {
+
+        // count === 0 -> true
+
         var book = new Book();
         book.save(function(err) {
-            // doc-level function as well
-            book.nextAutoIncrement(function(err, res) {
-                console.log(res); // book's # is 0, so this is 1
+
+            // book._id === 0 -> true
+
+            book.nextCount(function(err, count) {
+
+                // count === 1 -> true
+
             });
         });
     });
+
+    nextCount is both a static method on the model (`Book.nextCount(...)`) and an instance method on the document (`book.nextCount(...)`).
