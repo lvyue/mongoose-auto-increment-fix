@@ -4,7 +4,7 @@ var should = require('should'),
     db;
 
 before(function (done) {
-    db = mongoose.createConnection('mongodb://localhost/mongoose-auto-increment-test');
+    db = mongoose.createConnection('mongodb://MAI:mai-test@ds045107.mongolab.com:45107/mongoose-auto-increment-test');
     db.on('error', console.error.bind(console));
     db.once('open', function () {
         autoIncrement.initialize(db);
