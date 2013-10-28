@@ -1,48 +1,61 @@
 {
-  "name": "mongoose-auto-increment",
-  "version": "2.0.4",
-  "description": "This plugin allows you to auto-increment any field on any mongoose schema that you wish.",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/Chevex/mongoose-auto-increment.git"
-  },
-  "dependencies": {
-    "extend": "*"
-  },
-  "peerDependencies": {
-    "mongoose": "*"
-  },
-  "devDependencies": {
-    "mocha": "*",
-    "should": "*",
-    "mongoose": "*"
-  },
-  "keywords": [
-    "mongoose",
-    "plugin",
-    "auto-increment",
-    "auto",
-    "increment",
-    "automatic",
-    "autoincrement",
-    "auto_increment",
-    "autoinc",
-    "auto-inc",
-    "auto_inc",
-    "pureautoinc",
-    "mongoose-pureautoinc"
-  ],
-  "author": "Chevex",
-  "contributors": [
-    {
-      "name": "Nassor Paulino da Silva",
-      "email": "nassor@gmail.com"
+    "name": "mongoose-auto-increment",
+    "version": "2.0.4",
+    "description": "This plugin allows you to auto-increment any field on any mongoose schema that you wish.",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/Chevex/mongoose-auto-increment.git"
+    },
+    "dependencies": {
+        "extend": "*"
+    },
+    "peerDependencies": {
+        "mongoose": "*"
+    },
+    "devDependencies": {
+        "mocha": "*",
+        "should": "*",
+        "mongoose": "*"
+    },
+    "keywords": [
+        "mongoose",
+        "plugin",
+        "auto-increment",
+        "auto",
+        "increment",
+        "automatic",
+        "autoincrement",
+        "auto_increment",
+        "autoinc",
+        "auto-inc",
+        "auto_inc",
+        "pureautoinc",
+        "mongoose-pureautoinc"
+    ],
+    "author": {
+        "name": "Alex Ford (Chevex)",
+        "email": "alex.ford@codetunnel.com",
+        "url": "http://CodeTunnel.com"
+    },
+    "contributors": [
+        {
+            "name": "Nassor Paulino da Silva (rossan)",
+            "email": "nassor@gmail.com"
+        },
+        {
+            "name": "Misha Koryak (mkoryak)",
+            "email": "mkoryak@gmail.com",
+            "url": "http://ExhibitionNest.com"
+        },
+        {
+            "name": "Christopher Hiller (boneskull)",
+            "url": "http://boneskull.github.io/"
+        }
+    ],
+    "scripts": {
+        "test": "node_modules/mocha/bin/mocha"
+    },
+    "bugs": {
+        "url": "https://github.com/Chevex/mongoose-auto-increment/issues"
     }
-  ],
-  "scripts": {
-    "test": "node_modules/mocha/bin/mocha"
-  },
-  "bugs": {
-    "url": "https://github.com/Chevex/mongoose-auto-increment/issues"
-  }
 }
