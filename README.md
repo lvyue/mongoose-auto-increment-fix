@@ -1,5 +1,10 @@
 # mongoose-auto-increment
-This plugin allows you to auto-increment any field on any mongoose schema that you wish.
+
+[![Build Status](https://travis-ci.org/Chevex/mongoose-auto-increment.png)](https://travis-ci.org/Chevex/mongoose-auto-increment)
+[![Dependencies Status](https://gemnasium.com/Chevex/mongoose-auto-increment.png)](https://gemnasium.com/Chevex/mongoose-auto-increment)
+[![NPM version](https://badge.fury.io/js/mongoose-auto-increment.png)](http://badge.fury.io/js/mongoose-auto-increment)
+
+> Mongoose plugin that auto-increments any ID field on your schema every time a document is saved.
 
 ## Getting Started
 
