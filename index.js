@@ -117,8 +117,9 @@ exports.plugin = function (schema, options) {
             }
         );
     };
-    // Add resetCount as a method on documents.
+    // Add resetCount as both a method on documents and a static on the schema for convenience.
     schema.method('resetCount', resetCount);
+    schema.static('resetCount', resetCount);
 
     // Every time documents in this schema are saved, run this logic.
     schema.pre('save', function (next) {
