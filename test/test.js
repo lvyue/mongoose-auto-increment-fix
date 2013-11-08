@@ -125,9 +125,9 @@ describe('mongoose-auto-increment', function () {
 
     });
 
-    describe('nextCount function', function () {
+    describe('helper function', function () {
 
-        it('should return the next count for the model and field (Test 5)', function (done) {
+        it('nextCount should return the next count for the model and field (Test 5)', function (done) {
 
             var userSchema = new mongoose.Schema({
                 name: String,
@@ -168,6 +168,39 @@ describe('mongoose-auto-increment', function () {
                                 });
                             });
                         });
+                    });
+                });
+            });
+        });
+
+        it('resetCount should cause the count to reset as if there were no documents yet.', function (done) {
+
+            var userSchema = new mongoose.Schema({
+                name: String,
+                dept: String
+            });
+            userSchema.plugin(autoIncrement.plugin, 'User');
+            var User = db.model('User', userSchema);
+
+            // Create user and save it.
+            var user = new User({name: 'Charlie', dept: 'Support'});
+            // Now save user and check if its _id is what nextCount said.
+            user.save(function (err) {
+                should.not.exists(err);
+                user._id.should.eql(0);
+
+                // Call nextCount to check the next number. Should be one.
+                user.nextCount(function (err, count) {
+                    should.not.exists(err);
+                    count.should.eql(1);
+
+                    // Now reset the count.
+                    user.resetCount();
+
+                    // Call nextCount again to check that the next count is reset. Should be zero.
+                    user.nextCount(function (err, count) {
+                        should.not.exists(err);
+                        count.should.eql(2);
                     });
                 });
             });
