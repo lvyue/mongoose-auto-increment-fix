@@ -105,6 +105,21 @@ exports.plugin = function (schema, options) {
     schema.method('nextCount', nextCount);
     schema.static('nextCount', nextCount);
 
+    // Declare a function to reset counter at the start value.
+    var resetCount = function (callback) {
+        Counter.findOneAndUpdate(
+            { model: settings.model, field: settings.field },
+            { count: settings.startAt },
+            { new: true }, // new: true specifies that the callback should get the reseted counter.
+            function (err, resetedCounter) {
+                if (err) return callback(err);
+                callback(null, resetedCounter);
+            }
+        );
+    };
+    // Add resetCount as a method on documents.
+    schema.method('resetCount', resetCount);
+
     // Every time documents in this schema are saved, run this logic.
     schema.pre('save', function (next) {
         // Get reference to the document being saved.
