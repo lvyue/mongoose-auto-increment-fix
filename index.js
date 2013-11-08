@@ -105,15 +105,15 @@ exports.plugin = function (schema, options) {
     schema.method('nextCount', nextCount);
     schema.static('nextCount', nextCount);
 
-    // Declare a function to reset counter at the start value.
+    // Declare a function to reset counter at the start value - increment value.
     var resetCount = function (callback) {
         Counter.findOneAndUpdate(
             { model: settings.model, field: settings.field },
-            { count: settings.startAt },
-            { new: true }, // new: true specifies that the callback should get the reseted counter.
-            function (err, resetedCounter) {
+            { count: settings.startAt - settings.incrementBy },
+            { new: true }, // new: true specifies that the callback should get the updated counter.
+            function (err, updatedCounter) {
                 if (err) return callback(err);
-                callback(null, resetedCounter);
+                callback(null, updatedCounter);
             }
         );
     };
