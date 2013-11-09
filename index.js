@@ -111,9 +111,9 @@ exports.plugin = function (schema, options) {
             { model: settings.model, field: settings.field },
             { count: settings.startAt - settings.incrementBy },
             { new: true }, // new: true specifies that the callback should get the updated counter.
-            function (err, updatedCounter) {
+            function (err) {
                 if (err) return callback(err);
-                callback(null, updatedCounter);
+                callback(null, settings.startAt);
             }
         );
     };
