@@ -1,5 +1,6 @@
 # mongoose-auto-increment
 
+[![Build Status](https://travis-ci.org/Chevex/mongoose-auto-increment.png)](https://travis-ci.org/chevex/mongoose-auto-increment)
 [![Build Status](https://travis-ci.org/Chevex/mongoose-auto-increment.png)](https://travis-ci.org/Chevex/mongoose-auto-increment)
 [![Dependencies Status](https://gemnasium.com/Chevex/mongoose-auto-increment.png)](https://gemnasium.com/Chevex/mongoose-auto-increment)
 [![NPM version](https://badge.fury.io/js/mongoose-auto-increment.png)](http://badge.fury.io/js/mongoose-auto-increment)
