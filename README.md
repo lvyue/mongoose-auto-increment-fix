@@ -80,18 +80,31 @@ Your first book document would have a `bookId` equal to `100`. Your second book 
 
 nextCount is both a static method on the model (`Book.nextCount(...)`) and an instance method on the document (`book.nextCount(...)`).
 
-### Want to reset counter at the start value?
+### Want to reset counter back to the start value?
 
     bookSchema.plugin(autoIncrement.plugin, {
         model: 'Book',
         field: 'bookId',
-        startAt: 100 // please note that value is 100
+        startAt: 100
     });
 
-    var Book = connection.model('Book', bookSchema);
+    var Book = connection.model('Book', bookSchema),
+        book = new Book();
 
-    // piece of code where we have incremented bookId
+    book.save(function (err) {
 
-    Book.resetCount(function(err, counter) {
-        // counter.bookId === 100 -> true, startAt is 100 ;)
+        // book._id === 100 -> true
+
+        book.nextCount(function(err, count) {
+
+            // count === 101 -> true
+
+            book.resetCount(function(err, nextCount) {
+
+                // nextCount === 100 -> true
+
+            });
+
+        });
+
     });
