@@ -14,7 +14,7 @@ before(function (done) {
 });
 
 after(function (done) {
-    conn.db.executeDbCommand({ ropDatabase: 1 }, function () {
+    conn.db.executeDbCommand({ dropDatabase: 1 }, function () {
         conn.close(done);
     });
 });
