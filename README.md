@@ -16,13 +16,14 @@ mongoose connection and pass `autoIncrement.plugin` to the `plugin()` function o
 > Note: You only need to initialize MAI once.
 
     var mongoose = require('mongoose'),
+        Schema = mongoose.Schema,
         autoIncrement = require('mongoose-auto-increment');
 
     var connection = mongoose.createConnection("mongodb://localhost/myDatabase");
 
     autoIncrement.initialize(connection);
 
-    var bookSchema = new mongoose.Schema({
+    var bookSchema = new Schema({
         author: { type: Schema.Types.ObjectId, ref: 'Author' },
         title: String,
         genre: String,
@@ -32,7 +33,21 @@ mongoose connection and pass `autoIncrement.plugin` to the `plugin()` function o
     bookSchema.plugin(autoIncrement.plugin, 'Book');
     var Book = connection.model('Book', bookSchema);
 
-That's it. Now you can create book entities at will and the `_id` field will automatically increment with each new document.
+That's it. Now you can create book entities at will and they will have an `_id` field added of type `Number` and will automatically increment with each new document. Even declaring references is easy, just remember to change the reference property's type to `Number` instead of `ObjectId` if the referenced model is also using the plugin.
+
+    var authorSchema = new mongoose.Schema({
+        name: String
+    });
+    
+    var bookSchema = new Schema({
+        author: { type: Number, ref: 'Author' },
+        title: String,
+        genre: String,
+        publishDate: Date
+    });
+    
+    bookSchema.plugin(autoIncrement.plugin, 'Book');
+    authorSchema.plugin(autoIncrement.plugin, 'Author');
 
 ### Want a field other than `_id`?
 
