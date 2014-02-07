@@ -1,7 +1,7 @@
 # mongoose-auto-increment
 
 [![Build Status](https://travis-ci.org/chevex/mongoose-auto-increment.png?branch=master)](https://travis-ci.org/chevex/mongoose-auto-increment)
-[![Dependencies Status](https://gemnasium.com/Chevex/mongoose-auto-increment.png)](https://gemnasium.com/Chevex/mongoose-auto-increment)
+[![Dependencies Status](https://gemnasium.com/chevex/mongoose-auto-increment.png)](https://gemnasium.com/chevex/mongoose-auto-increment)
 [![NPM version](https://badge.fury.io/js/mongoose-auto-increment.png)](http://badge.fury.io/js/mongoose-auto-increment)
 
 > Mongoose plugin that auto-increments any ID field on your schema every time a document is saved.
@@ -63,15 +63,6 @@ That's it. Now you can create book entities at will and they will have an `_id` 
     });
 
 Your first book document would have a `bookId` equal to `100`. Your second book document would have a `bookId` equal to `200`, and so on.
-
-### Want your field to increment every time you update it too?
-
-    bookSchema.plugin(autoIncrement.plugin, {
-        model: 'Book',
-        field: 'bookId',
-        startAt: 100,
-        incrementBy: 100
-    });
 
 ### Want to know the next number coming up?
 
