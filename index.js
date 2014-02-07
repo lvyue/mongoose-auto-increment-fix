@@ -126,20 +126,30 @@ exports.plugin = function (schema, options) {
         // Get reference to the document being saved.
         var doc = this;
 
-        // If the document already has the field we're interested in and that field is a number OR the user specified
-        // that we should increment even on document updates, then run this logic.
+        // If the document already has the field we're interested in and that field is a number then run this logic
+        // to give the document a number ID that is incremented by the amount specified in relation to whatever the
+        // last generated document ID was.
         if (typeof(doc[settings.field]) !== 'number') {
+            // Declare self-invoking save function.
             (function save() {
-                // If read, run increment logic.
+                // If ready, run increment logic.
+                // Note: ready is true when an existing counter collection is found or after it is created for the
+                // first time.
                 if (ready) {
-                    // Find the counter collection for this model and field and update it.
+                    // Find the counter collection entry for this model and field and update it.
                     Counter.findOneAndUpdate(
+                        // Counter documents are identified by the model and field that the plugin was invoked for.
                         { model: settings.model, field: settings.field },
+                        // Increment the count by `incrementBy`.
                         { $inc: { count: settings.incrementBy } },
-                        { new: true }, // new: true specifies that the callback should get the updated counter.
+                        // new:true specifies that the callback should get the counter AFTER it is updated (incremented).
+                        { new: true },
+                        // Receive the updated counter.
                         function (err, updatedCounter) {
                             if (err) return next(err);
+                            // If there are no errors then go ahead and set the document's field to the current count.
                             doc[settings.field] = updatedCounter.count;
+                            // Continue with default document save functionality.
                             next();
                         }
                     );
