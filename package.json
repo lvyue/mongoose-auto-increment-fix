@@ -4,7 +4,7 @@
   "description": "This plugin allows you to auto-increment any field on any mongoose schema that you wish.",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Chevex/mongoose-auto-increment.git"
+    "url": "git://github.com/codetunnel/mongoose-auto-increment.git"
   },
   "dependencies": {
     "extend": "*"
@@ -61,6 +61,6 @@
     "test": "node_modules/mocha/bin/mocha"
   },
   "bugs": {
-    "url": "https://github.com/Chevex/mongoose-auto-increment/issues"
+    "url": "https://github.com/codetunnel/mongoose-auto-increment/issues"
   }
 }
