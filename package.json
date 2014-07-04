@@ -13,10 +13,10 @@
     "mongoose": "^3.8.12"
   },
   "devDependencies": {
-    "mocha": "*",
-    "mongoose": "*",
+    "async": "*",
     "chai": "*",
-    "async": "*"
+    "mocha": "*",
+    "mongoose": "^3.8.12"
   },
   "keywords": [
     "mongoose",
