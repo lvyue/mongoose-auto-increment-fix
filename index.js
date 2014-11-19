@@ -40,7 +40,8 @@ exports.plugin = function (schema, options) {
             model: null, // The model to configure the plugin for.
             field: '_id', // The field the plugin should track.
             startAt: 0, // The number the count should start at.
-            incrementBy: 1 // The number by which to increment the count each time.
+            incrementBy: 1, // The number by which to increment the count each time.
+            pluginLoaded: function (pluginSettings) {} // The callback to be invoked when the plugin has been successfully registered for a model.
         },
         fields = {}, // A hash of fields to add properties to in Mongoose.
         ready = false; // True if the counter collection has been updated and the document is ready to be saved.
@@ -73,10 +74,13 @@ exports.plugin = function (schema, options) {
                 counter = new IdentityCounter({ model: settings.model, field: settings.field, count: settings.startAt - settings.incrementBy });
                 counter.save(function () {
                     ready = true;
+                    settings.pluginLoaded(settings);
                 });
             }
-            else
+            else {
                 ready = true;
+                settings.pluginLoaded(settings);
+            }
         }
     );
 
