@@ -1,6 +1,6 @@
 {
   "name": "mongoose-auto-increment",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "This plugin allows you to auto-increment any field on any mongoose schema that you wish.",
   "repository": {
     "type": "git",
