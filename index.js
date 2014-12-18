@@ -117,7 +117,7 @@ exports.plugin = function (schema, options) {
     var doc = this;
 
     // Only do this if it is a new document (see http://mongoosejs.com/docs/api.html#document_Document-isNew)
-    if (!doc.isNew) {
+    if (doc.isNew) {
       // Declare self-invoking save function.
       (function save() {
         // If ready, run increment logic.
