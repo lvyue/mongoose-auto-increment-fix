@@ -40,7 +40,8 @@ exports.plugin = function (schema, options) {
     model: null, // The model to configure the plugin for.
     field: '_id', // The field the plugin should track.
     startAt: 0, // The number the count should start at.
-    incrementBy: 1 // The number by which to increment the count each time.
+    incrementBy: 1, // The number by which to increment the count each time.
+    unique: true // Should we create a unique index for the field
   },
   fields = {}, // A hash of fields to add properties to in Mongoose.
   ready = false; // True if the counter collection has been updated and the document is ready to be saved.
@@ -59,7 +60,7 @@ exports.plugin = function (schema, options) {
   // Add properties for field in schema.
   fields[settings.field] = {
     type: Number,
-    unique: true,
+    unique: settings.unique,
     require: true
   };
   schema.add(fields);
