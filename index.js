@@ -121,33 +121,48 @@ exports.plugin = function (schema, options) {
     // Get reference to the document being saved.
     var doc = this;
 
-    // If the document already has the field we're interested in and that field is a number then run this logic
-    // to give the document a number ID that is incremented by the amount specified in relation to whatever the
-    // last generated document ID was.
-    if (typeof(doc[settings.field]) !== 'number') {
+    // Only do this if it is a new document (see http://mongoosejs.com/docs/api.html#document_Document-isNew)
+    if (doc.isNew) {
       // Declare self-invoking save function.
       (function save() {
         // If ready, run increment logic.
         // Note: ready is true when an existing counter collection is found or after it is created for the
         // first time.
         if (ready) {
-          // Find the counter collection entry for this model and field and update it.
-          IdentityCounter.findOneAndUpdate(
-            // IdentityCounter documents are identified by the model and field that the plugin was invoked for.
-            { model: settings.model, field: settings.field },
-            // Increment the count by `incrementBy`.
-            { $inc: { count: settings.incrementBy } },
-            // new:true specifies that the callback should get the counter AFTER it is updated (incremented).
-            { new: true },
-            // Receive the updated counter.
-            function (err, updatedIdentityCounter) {
-              if (err) return next(err);
-              // If there are no errors then go ahead and set the document's field to the current count.
-              doc[settings.field] = updatedIdentityCounter.count;
-              // Continue with default document save functionality.
-              next();
-            }
-          );
+          // check that a number has already been provided, and update the counter to that number if it is
+          // greater than the current count
+          if (typeof doc[settings.field] === 'number') {
+            IdentityCounter.findOneAndUpdate(
+              // IdentityCounter documents are identified by the model and field that the plugin was invoked for.
+              // Check also that count is less than field value.
+              { model: settings.model, field: settings.field, count: { $lt: doc[settings.field] } },
+              // Change the count of the value found to the new field value.
+              { count: doc[settings.field] },
+              function (err) {
+                if (err) return next(err);
+                // Continue with default document save functionality.
+                next();
+              }
+            );
+          } else {
+            // Find the counter collection entry for this model and field and update it.
+            IdentityCounter.findOneAndUpdate(
+              // IdentityCounter documents are identified by the model and field that the plugin was invoked for.
+              { model: settings.model, field: settings.field },
+              // Increment the count by `incrementBy`.
+              { $inc: { count: settings.incrementBy } },
+              // new:true specifies that the callback should get the counter AFTER it is updated (incremented).
+              { new: true },
+              // Receive the updated counter.
+              function (err, updatedIdentityCounter) {
+                if (err) return next(err);
+                // If there are no errors then go ahead and set the document's field to the current count.
+                doc[settings.field] = updatedIdentityCounter.count;
+                // Continue with default document save functionality.
+                next();
+              }
+            );
+          }
         }
         // If not ready then set a 5 millisecond timer and try to save again. It will keep doing this until
         // the counter collection is ready.
