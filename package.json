@@ -10,13 +10,13 @@
     "extend": "^2.0.0"
   },
   "peerDependencies": {
-    "mongoose": "^3.8.12"
+    "mongoose": "~4.0.0"
   },
   "devDependencies": {
     "async": "*",
     "chai": "*",
     "mocha": "*",
-    "mongoose": "~3.8.18"
+    "mongoose": "~4.0.0"
   },
   "keywords": [
     "mongoose",
