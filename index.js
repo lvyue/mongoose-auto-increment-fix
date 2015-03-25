@@ -57,12 +57,16 @@ exports.plugin = function (schema, options) {
     break;
   }
 
+  if (settings.model == null)
+    throw new Error("model must be set");
+
   // Add properties for field in schema.
   fields[settings.field] = {
     type: Number,
-    unique: settings.unique,
     require: true
   };
+  if (settings.field !== '_id')
+    fields[settings.field].unique = settings.unique
   schema.add(fields);
 
   // Find the counter for this model and the relevant field.
