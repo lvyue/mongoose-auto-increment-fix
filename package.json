@@ -7,16 +7,16 @@
     "url": "git://github.com/codetunnel/mongoose-auto-increment.git"
   },
   "dependencies": {
-    "extend": "^2.0.0"
+    "extend": "^3.0.0"
   },
   "peerDependencies": {
-    "mongoose": "^4.0.0"
+    "mongoose": "^4.1.12"
   },
   "devDependencies": {
     "async": "*",
     "chai": "*",
     "mocha": "*",
-    "mongoose": "^4.0.0"
+    "mongoose": "^4.1.12"
   },
   "keywords": [
     "mongoose",
