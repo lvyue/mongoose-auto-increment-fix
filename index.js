@@ -18,7 +18,8 @@ exports.initialize = function (connection) {
       });
 
       // Create a unique index using the "field" and "model" fields.
-      counterSchema.index({ field: 1, model: 1 }, { unique: true, required: true, index: -1 });
+      // Bug fix: remove "required" and "index" options, and add "background" options
+      counterSchema.index({ field: 1, model: 1 }, { unique: true, background: true });
 
       // Create model using new schema.
       IdentityCounter = connection.model('IdentityCounter', counterSchema);
